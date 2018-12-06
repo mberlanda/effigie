@@ -1,6 +1,8 @@
 # Effigie
 
-Simple utility to render ERB templates from hash
+[![Build Status](https://travis-ci.com/mberlanda/effigie.svg?branch=master)](https://travis-ci.com/mberlanda/effigie)
+
+Simple utility to render ERB templates from hash, objects or self.
 
 ## Installation
 
@@ -20,6 +22,73 @@ Or install it yourself as:
 
 ## Usage
 
+### Using a static file and the default template:
+
+Template under `tasks.erb`:
+```erb
+These are my tasks:
+<% tasks.each do |t| %>* <%= t.name %>: <%= t.due_date %>
+<% end %>
+```
+
+```rb
+Task = Struct.new(:name, :due_date)
+template = Effigie::Template.new(filepath)
+tasks_list = [Task.new('foo', 'today'), Task.new('bar', 'tomorrow')]
+
+# Using an object responding to these methods
+class Agenda
+  attr_accessor :tasks
+end
+
+agenda = Agenda.new.tap { |a| a.tasks = tasks_list }
+template.render(agenda)
+
+# Using an OpenStruct
+template.render(OpenStruct.new(tasks: tasks_list))
+
+# Using self
+def tasks
+  tasks_list
+end
+template.render(self)
+```
+
+### Using custom subclasses
+
+```rb
+# Override default erb private method to avoid reading from file
+class HelloTemplate < Effigie::Template
+  def erb
+    ERB.new("Hello <%= name %>")
+  end
+end
+Person = Struct.new(:name)
+
+HelloWorldTemplate.new.render(Person.new("John Doe"))
+
+# Read from instance variables and methods
+class UserTemplate < Effigie::Template
+  def erb
+    ERB.new("Hello <%= current_user.name %>, welcome into <%= @application %>.")
+  end
+end
+
+def current_user
+  Person.new("John Doe")
+end
+
+@application = "Effigie"
+
+# Read from an hash table
+class HashTemplate < Effigie::Template
+  def erb
+    ERB.new("Hello <%= self[:name] %>, welcome into <%= self[:application] %>.")
+  end
+end
+
+HashTemplate.new.render(name: "John Doe", application: "Effigie")
+```
 
 ## Development
 

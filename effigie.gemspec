@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Mauro Berlanda"]
   spec.email         = ["mauro.berlanda@gmail.com"]
 
-  spec.summary       = %q{Simple utility to render ERB templates from hash}
-  spec.description   = %q{Utility to render ERB templates out of hash maps using ruby standard library}
+  spec.summary       = %q{Simple utility to render ERB templates from hash, objects or self.}
+  spec.description   = %q{Utility to render ERB templates out of hash maps, objects or self using ruby standard library}
   spec.homepage      = "https://www.github.com/mberlanda/effigie"
   spec.license       = "MIT"
 
