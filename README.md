@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.com/mberlanda/effigie.svg?branch=master)](https://travis-ci.com/mberlanda/effigie) [![Gem Version](https://badge.fury.io/rb/effigie.svg)](https://badge.fury.io/rb/effigie)
 
 Simple utility to render ERB templates from hash, objects or self.
+Mostly inspired to SO <https://stackoverflow.com/a/5462069>
 
 ## Installation
 
@@ -52,6 +53,9 @@ def tasks
   tasks_list
 end
 template.render(self)
+
+# Using an Effigie::HashBinding
+template.render(Effigie::HashBinding.new(tasks: tasks_list))
 ```
 
 ### Using custom subclasses

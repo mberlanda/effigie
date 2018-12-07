@@ -12,6 +12,12 @@ EXPECTED
 
     Task = Struct.new(:name, :due_date)
 
+    it 'should render out of an Effigie::HashBinding cxt passed' do
+      expect(
+        template.render(Effigie::HashBinding.new(tasks: [Task.new('foo', 'today'), Task.new('bar', 'tomorrow')]))
+      ).to eq(expected)
+    end
+
     it 'should render out of an OpenStruct cxt passed' do
       require 'ostruct'
       expect(

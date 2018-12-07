@@ -17,7 +17,7 @@ class Effigie::Template
   # Usage:
   #
   # Reading from file path
-  # +Effigie::Template.new("path/to/file.erb")
+  # +Effigie::Template.new("path/to/file.erb")+
   #
   # Overriding +erb+ method
   #
