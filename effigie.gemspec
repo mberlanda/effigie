@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://www.github.com/mberlanda/effigie"
   spec.license       = "MIT"
 
-  spec.files         = Dir.glob("#{lib}/**/*.rb") + ["README.md"]
+  spec.files         = Dir.glob('lib/**/*.rb') + %w[effigie.gemspec Gemfile README.md]
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
